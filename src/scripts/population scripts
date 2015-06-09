@@ -1,0 +1,4 @@
+INSERT INTO book(isbn,title,genre,rating) VALUES
+(1,"Soft Skills: The Software Developers Life Manual", "Education", 10),
+(2,"Headfirst Java", "Education",9),
+(3, "The Talon of Horus","Sci-Fi", 8);
