@@ -1,4 +1,11 @@
 INSERT INTO book(isbn,title,genre,rating) VALUES
 (1,"Soft Skills: The Software Developers Life Manual", "Education", 10),
 (2,"Headfirst Java", "Education",9),
-(3, "The Talon of Horus","Sci-Fi", 8);
+(3, "Sams Teach Yourself Java in 21 days","Education", 7),
+(4, "The Talon of Horus","Sci-Fi", 8),
+(5, "Dark Heresy","Role-Playing Game", 10),
+(6, "Deathwatch","Role-Playing Game", 6),
+(7, "Java All-In-One for Dummies","Education", 7),
+(8, "Of Mice and Men","Novella", 10),
+(9, "The Art of War","Military", 10),
+(10, "Catcher in the Rye","Novel", 7);

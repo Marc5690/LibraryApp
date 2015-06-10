@@ -52,7 +52,6 @@
 				books.add(book);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -67,7 +66,7 @@
 					"','" + b.getGenre() + 
 					"'," + b.getIsbn() + ") ON DUPLICATE KEY UPDATE " +
 					"title = VALUES(title), " +
-					"genre = VALUES(genre)" +
+					"genre = VALUES(genre)," +
 					"rating = VALUES(rating);";
 			statement.executeUpdate(select);
 			}
@@ -97,24 +96,24 @@
 		}
 	}
 	
-	public boolean removeBook(int isbn){
+	public boolean removeBook(int isbn) throws SQLException{
 		Boolean removed = false;
-		int exists = 0;
+		ResultSet exists = null ;
+		Statement statement = connection.createStatement();
 		try {
-			Statement statement = connection.createStatement();
-			String checkBook = "Select * FROM book WHERE isbn = " + isbn + ");";
-			exists = statement.executeUpdate(checkBook);					
+			String checkBook = "Select * FROM book WHERE isbn = " + isbn + ";";
+			exists = statement.executeQuery(checkBook);		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	 	
-		for(Book book:books){
-			if(book.getIsbn() == isbn && exists > 0){
-				books.remove(book);
+		for(int i = 0;i < books.size()-1;i++){
+			Book currentBook = books.get(i);
+			if(currentBook.getIsbn() == isbn && exists.first()){
+				books.remove(currentBook);
 			 	try {
-					Statement statement = connection.createStatement();
-					String removeBook = "DELETE FROM book WHERE isbn = " + isbn + ");";
-					statement.executeUpdate(removeBook);					
+					String removeBook = "DELETE FROM book WHERE isbn = " + isbn + ";";
+					statement.executeUpdate(removeBook);	
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -142,8 +141,7 @@
 		}
 		return foundBooks;
 	}
-	
-	
+		
 	//the genreSearch method uses the Linear search algorithm
 	public ArrayList<Book> genreSearch(String genre){
 	ArrayList<Book> foundBooks = new ArrayList<Book>();

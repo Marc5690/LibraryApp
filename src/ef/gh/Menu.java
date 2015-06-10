@@ -1,5 +1,6 @@
 package ef.gh;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -47,7 +48,7 @@ public class Menu extends Application{
 	    loadBtn.setText("Load database");
         listBtn.setText("List Books");
         exitButton.setText("Exit");
-        ratingSortButton.setText("Top Three");
+        ratingSortButton.setText("Top Three Books");
 	    addButton.setText("Add Book");
 	    removeButton.setText("Remove Book");
 	    updateButton.setText("Update Book");
@@ -112,16 +113,21 @@ public class Menu extends Application{
 	    @Override
         public void handle(ActionEvent event) {
 	    	int parsedIsbn = Integer.parseInt(JOptionPane.showInputDialog(null, "ISBN:"));
-	    	if(action.removeBook(parsedIsbn)){
-	    		alert.setTitle("Delete Successful!");
-	            alert.setContentText("Book has been removed");
-	          
-	    	}
-	    	else{
-	    		alert.setTitle("Delete Failed!");
-	            alert.setContentText("Book has could not be removed");
-	          
-	    	}
+	    	try {
+				if(action.removeBook(parsedIsbn)){
+					alert.setTitle("Delete Successful!");
+				    alert.setContentText("Book has been removed");
+				  
+				}
+				else{
+					alert.setTitle("Delete Failed!");
+				    alert.setContentText("Book could not be removed");
+				  
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	      alert.show();
        	}
     });
